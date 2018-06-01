@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './products/product-list.component';
+import { ConvertToSpacesPipe } from '../../APM-Final/src/app/shared/convert-to-spaces.pipe';
 // import { WelcomeComponent } from './home/welcome.component';
 
 @NgModule({
@@ -11,6 +12,7 @@ import { ProductListComponent } from './products/product-list.component';
     AppComponent,
     ProductListComponent,
     // WelcomeComponent
+    ConvertToSpacesPipe
   ],
   imports: [
     BrowserModule,
