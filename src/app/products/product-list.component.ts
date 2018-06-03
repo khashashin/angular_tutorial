@@ -12,7 +12,17 @@ export class ProductListComponent implements OnInit {
   imageWidth: number = 50;
   imageMargin: number = 2;
   showImage: boolean = false;
-  listFilter: string = 'cart';
+
+  _listFilter: string = 'cart';
+  get listFilter(): string {
+      return this._listFilter;
+  }
+  set listFilter(value: string) {
+      this._listFilter = value;
+      this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
+  }
+
+  filteredProducts: IProduct[];
   products: IProduct[] = [
     {
         'productId': 1,
@@ -32,7 +42,7 @@ export class ProductListComponent implements OnInit {
         'description': '15 gallon capacity rolling garden cart',
         'price': 32.99,
         'starRating': 4.2,
-        'imageUrl': 'https://www.iconspng.com/uploads/garden-cart/garden-cart.png'
+        'imageUrl': 'https://cdn.pixabay.com/photo/2017/01/17/20/48/wheelbarrow-1988038_960_720.png'
     },
     {
         'productId': 5,
@@ -65,6 +75,17 @@ export class ProductListComponent implements OnInit {
         'imageUrl': 'https://cdn.pixabay.com/photo/2016/11/15/23/51/controller-1827840_960_720.png'
     }
   ];
+
+  constructor() {
+      this.filteredProducts = this.products;
+      this.listFilter = 'cart';
+  }
+
+  performFilter(filterBy: string): IProduct[] {
+      filterBy = filterBy.toLocaleLowerCase();
+      return this.products.filter((product: IProduct) =>
+                product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+  }
 
   toggleImage(): void {
     this.showImage = !this.showImage;
